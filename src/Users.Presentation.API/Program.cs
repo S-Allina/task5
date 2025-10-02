@@ -64,7 +64,7 @@ namespace Users.Presentation.API
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromHours(3);
                 options.SlidingExpiration = true;
-                options.LoginPath = "/api/identity/login";
+                options.LoginPath = "/#/theapp/login";
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
@@ -119,7 +119,6 @@ namespace Users.Presentation.API
 
             var app = builder.Build();
 
-            app.UseMiddleware<UserStatusMiddleware>();
             app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
             if (app.Environment.IsDevelopment())
@@ -138,6 +137,8 @@ namespace Users.Presentation.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<UserStatusMiddleware>();
+
             app.MapControllers();
 
             app.Run();
