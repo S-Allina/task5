@@ -1,0 +1,22 @@
+﻿@using Users.Domain.Entity
+@model ApplicationUser;
+
+@{
+    ViewData["Title"] = "Email Sent";
+    Layout = "~/";
+}
+
+<div class="account-container">
+    <div class="account-box">
+        <h2 class="text-center mb-4">Email Send</h2>
+            <div class="text-center mt-2">
+                <a asp-controller="Account" asp-action="Login" class="text-decoration-none mt-3">Back</a>
+            </div>
+    </div>
+</div>
+
+@section Scripts{
+@{
+        await Html.RenderPartialAsync("_valid");
+    }
+}

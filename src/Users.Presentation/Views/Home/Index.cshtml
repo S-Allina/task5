@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center d-flex justify-content-center w-100">
+    <div class="p-6 w-50 d-flex flex-column justify-content-between">
+        <div class="logo w-25 h-auto"></div>
+        <div class="p-20 w-100 justify-content-lg-start">
+            <h6 class="text-secondary fw-light text-start m-0">Start your journey</h6>
+            <h2 class="text-black text-start ">Sing In to The App</h2>
+            <form class="mt-5" asp-action="VerifyEmail">
+                <div class="form-group">
+                    <input  name="email" type="email" class="form-control my-form-control" id="exampleFormControlInput1">
+                    <label for="exampleFormControlInput1" class="my-control-label">Email address</label>
+                    <span class="bi bi-envelope-fill field-icon"></span>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input  id="password-field" type="password" class="form-control my-form-control" name="password" value="secret">
+                        <label class="my-control-label my-label" for="password-field">Password</label>
+                        <span toggle="#password-field" class="bi bi-eye field-icon toggle-password"></span>
+                    </div>
+                </div>
+                <div class="form-check mb-3 fit-content">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Remember me
+                    </label>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="w-100 justify-content-between d-flex">
+            <span class="font-weight-light w-50 fs-0">Don't have an account?<a class="link-primary"> Sing up</a></span>
+            <span class="font-weight-light w-50 fs-0 text-end"><a class="link-primary">Forgot password?</a></span>
+        </div>
+    </div>
+    <div class="h-auto w-50 contain-container my-container"></div>
+
+</div>
