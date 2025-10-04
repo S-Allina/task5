@@ -47,6 +47,13 @@ namespace Users.Presentation.API.Controllers
             return response;
         }
 
+        [HttpGet("redirect-to-login")]
+        [AllowAnonymous]
+        public IActionResult RedirectToFrontendLogin()
+        {
+            return Redirect("https://s-allina.github.io/theapp/#/theapp/login");
+        }
+
         [HttpGet("verify-email")]
         [AllowAnonymous]
         public async Task<IActionResult> VerifyEmail(string token, string email)

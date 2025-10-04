@@ -64,7 +64,7 @@ namespace Users.Presentation.API
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromHours(3);
                 options.SlidingExpiration = true;
-                options.LoginPath = "/#/theapp/login";
+                options.LoginPath = "/api/identity/redirect-to-login";
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });

@@ -50,17 +50,23 @@ namespace Users.Infrastructure.Services
         {
             
             var newUser = _mapper.Map<ApplicationUser>(requestDto);
+            try
+            {
+                newUser.UserName = newUser.FirstName + newUser.LastName + newUser.Email;
+                newUser.LastActivity = DateTime.Now;
 
-            newUser.UserName = newUser.FirstName + newUser.LastName + newUser.Email;
-            newUser.LastActivity = DateTime.Now;
+                var result = await _userManager.CreateAsync(newUser, requestDto.Password);
 
-            var result = await _userManager.CreateAsync(newUser, requestDto.Password);
-
-            if (!result.Succeeded) {
-                var errorDescriptions = result.Errors.Select(error => error.Description);
-                throw new Exception($"Failed to create user: {string.Join(", ", errorDescriptions)}");
+                if (!result.Succeeded)
+                {
+                    var errorDescriptions = result.Errors.Select(error => error.Description);
+                    throw new Exception($"Failed to create user: {string.Join(", ", errorDescriptions)}");
+                }
             }
-
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             return newUser;
         }
     }

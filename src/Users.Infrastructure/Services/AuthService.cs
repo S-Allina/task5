@@ -43,7 +43,7 @@ namespace Users.Infrastructure.Services
 
             result.ErrorMessages ??= new List<string>();
 
-            if (user?.Status == Statuses.Blocked) {
+            if (userResponse?.Status == Statuses.Blocked) {
                 result.ErrorMessages.Add("You have been blocked.");
                 result.IsSuccess = false;
             }

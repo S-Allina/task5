@@ -13,11 +13,17 @@ namespace Users.Presentation.API.Middleware
         {
             _next = next;
         }
-        private static readonly string[] _allowedPaths =  ["/login", "/register", "/reset-password", "/logout"];
+        private static readonly string[] _allowedPaths = ["/login", "/register", "/reset-password", "/logout"];
 
         public async Task InvokeAsync(HttpContext context, IUserService userService, ICurrentUserService currentUserService)
         {
-            if(_allowedPaths.Any(path => context.Request.Path.Value.Contains(path)))            {
+            if (_allowedPaths.Any(path => context.Request.Path.Value.Contains(path)))
+            {
+                await _next(context);
+                return;
+            }
+            if (!context.User.Identity.IsAuthenticated)
+            {
                 await _next(context);
                 return;
             }
@@ -26,11 +32,11 @@ namespace Users.Presentation.API.Middleware
             var user = await currentUserService.GetCurrentUserAsync();
             var userResponse = string.IsNullOrEmpty(userId) ? null : await userService.GetByIdAsync(userId, new CancellationToken());
 
-            if (userResponse==null || userResponse.Status == Statuses.Blocked)
+            if (userResponse == null || userResponse.Status == Statuses.Blocked)
             {
                 var statusMessage = userResponse == null ? "deleted" : userResponse?.Status?.ToString().ToLower();
                 await context.SignOutAsync();
-                context.Response.StatusCode = 403; 
+                context.Response.StatusCode = 403;
                 await context.Response.WriteAsync($"User account has been {statusMessage}");
                 return;
             }
